@@ -1,16 +1,25 @@
 
 
-
-
 window.addEventListener('load', ()=>{
+
 
     let drawing =false;
     let color="black";  
     let x = undefined;
     let y = undefined; 
+    let currentTool = 'brush'; //tool being used
 
-
-    const pencil = document.querySelector("#pencil")
+    let usingPen = false;
+    // Stores line x & ys used to make brush lines
+    let penXPoints = new Array();
+    let penYPoints = new Array();
+    // Stores whether mouse is down
+    let penDownPos = new Array();
+    
+ 
+    
+    
+    const pen = document.querySelector("#pen")
     const canvas = document.querySelector("#canvas");
     const clearCanvas = document.getElementById("clear");
     const colorElement = document.getElementById("color");
@@ -20,12 +29,51 @@ window.addEventListener('load', ()=>{
     const context = canvas.getContext("2d");
     canvas.style.backgroundColor = "white";
     
+    
 
     //Mouse movement
 
+    /*canvas.addEventListener("mousedown", ReactToMouseMove);
+    canvas.addEventListener("mousedown", ReactToMouseUp);
+    canvas.addEventListener("mousedown", ReactToMouseDown);*/
+     
+
+      //from previous
      document.onmousemove = MouseMove;
      document.onmousedown = MouseDown;
      document.onmouseup = MouseUp;
+     
+     
+     insertImg();
+     function insertImg(){
+         img = new Image();
+         img.src = '../assets/Template1.png';
+         img.onload = function(){
+             context.drawImage(img, 0, 0, 400, 800 );
+         }
+     
+     }
+   
+     
+     function ChangeTool(toolClicked){
+        document.getElementById("pen").className = "";
+        document.getElementById("marker").className = "";
+        document.getElementById("text").className = "";
+        // Highlight the last selected tool on toolbar
+        document.getElementById(toolClicked).className = "selected";
+        // Change current tool used for drawing
+        currentTool = toolClicked;
+    }
+
+
+     function ChangeTool(toolClicked){
+        document.getElementById("pen").className = "";
+        document.getElementById("marker").className = "";
+        document.getElementById("text").className = "";
+        document.getElementById(toolClicked).className = "selected";
+        currentTool = toolClicked;
+
+    }
 
 
      // Style 
@@ -33,9 +81,9 @@ window.addEventListener('load', ()=>{
      context.strokeStyle = "#000";
      context.lineJoin = "round";
      context.lineWidth = 4;
+    
+    
 
-     //Event Listeners
-     
 
      function MouseMove(e)
      {
@@ -61,7 +109,6 @@ window.addEventListener('load', ()=>{
      {
          drawing = !drawing; 
      }
-     
     
      /*adds Color*/
 
@@ -76,77 +123,7 @@ window.addEventListener('load', ()=>{
 
 
 
-    /*canvas.addEventListener("mousedown", (e)=>{
-        drawing =true; 
-        x=e.offsetX;
-        y=e.offsetY;
-
-    });
-
-    canvas.addEventListener("mouseup", (e)=>{
-        drawing=false; 
-        x=undefined;
-        y=undefined;
-
-    });
-
-
-    canvas.addEventListener("mousemove", (e)=>{
-        if(drawing=true){
-           const x2=e.offsetX;
-           const y2=e.offsetY;
-           draw(x2, y2)
-           lines(x, y, x2, y2)
-           x=x2;
-           y=y2;
-        }; 
-        
-    });
     
-   function draw(x, y){
-       context.beginPath();
-       context.arc(x,y,size,0, Math.PI*2);
-       context.fillStyle=color;
-       context.fill();
-   }
-   
-
-   function lines(x1, y1, x2, y2){
-       context.beginPath();
-       context.moveTo(x1, y1);
-       context.lineTo(x2, y2);
-       context.strokeStyle=color;
-       context.lineWidth=size*4;
-       context.stroke();
-   }*/
-
-
-
-
-  
-
-    /*function startPosition(e){
-        painting = true; 
-        draw(e);
-    }
-
-    function finishedPosition(){
-        painting = false;
-        context.beginPath();
-    }
-
-    function draw(e){
-        if(!painting) return; 
-        context.lineWidth = 10; 
-        context.lineCap = "round"; 
-        context.lineTo(e.clientX, e.clientY);
-        context.stroke();
-        context.beginPath();
-        context.moveTo(e.clientX, e.clientY);
-        
-    }*/
-
-   
 
 
 });
