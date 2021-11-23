@@ -18,55 +18,38 @@ window.addEventListener('load', ()=>{
     const context = canvas.getContext("2d");
     canvas.style.backgroundColor = "white";
 
-    /*const canvasOffsetX = canvas.canvasOffsetX;
-    const canvasOffsetY = canvas.canvasOffsetY;
-    console.log(canvasOffsetY, canvasOffsetX);
-    canvas.width = window.innerWidth - 50;
-    canvas.height = window.innerHeight - 60;*/
+
+    var rect = canvas.getBoundingClientRect();
+    var offSetX = rect.left;
+    var offSetY = rect.top;
 
     
 
     function MouseMove(e)
      {  
-         /*if(!drawing){
-
-            return;
-        }else{
-            
-            context.lineTo(e.clientX, eclientY);
-            context.stroke();
-            context.closePath();
-            context.moveTo(e.clientX, e.clientY);
-
-        }*/
+    
             
          if(drawing)
-         {
-            context.lineTo(e.clientX, e.clientY);
+         {  
+            context.lineTo(e.clientX - offSetX, e.clientY- offSetY);
             context.stroke();
             context.closePath();
-            context.moveTo(e.clientX, e.clientY);
+            context.moveTo(e.clientX - offSetX, e.clientY - offSetY);
          } else{
-             context.moveTo(e.clientX, e.clientY);
+             context.moveTo(e.clientX - offSetX, e.clientY - offSetY);
          }
      }
      
      function MouseDown(e)
      {  
-        /*drawing = true; 
-        startX = e.clientX;
-        startY = e.clientY;*/ 
-         
-         /* insert backdrawing = true; */
+     
          drawing = !drawing;
-         context.moveTo(e.clientX, e.clientY);
+         context.moveTo(e.clientX-offSetX, e.clientY-offSetY);
          context.beginPath();
      }
 
      function MouseUp(e)
-     {  /*drawing = false; 
-        context.stroke();
-        context.beginPath();*/
+     { 
          drawing = false;
      }
     
@@ -80,7 +63,8 @@ window.addEventListener('load', ()=>{
      context.strokeStyle = "#000";
      context.lineJoin = "round";
      context.lineWidth = 9;
-
+     
+      //calls drawing functions 
      document.onmousemove = MouseMove;
      document.onmousedown = MouseDown;
      document.onmouseup = MouseUp;
@@ -94,6 +78,7 @@ window.addEventListener('load', ()=>{
         context.strokeStyle = "#000";
         context.lineJoin = "round";
         context.lineWidth = 2;
+        //calls drawing functions 
         document.onmousemove = MouseMove;
         document.onmousedown = MouseDown;
         document.onmouseup = MouseUp;
@@ -102,7 +87,7 @@ window.addEventListener('load', ()=>{
     
      
 
-     /*Template*/
+     /*Adds Bujo Template to Canvas*/
      
      templateElement.addEventListener("click", ()=>{
 
@@ -116,9 +101,8 @@ window.addEventListener('load', ()=>{
         }
      })
 
- 
 
-     /*Color*/
+     /* Selects Color*/
 
    colorElement.addEventListener("change", (e)=>{
     context.strokeStyle=e.target.value;
