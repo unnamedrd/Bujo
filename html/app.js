@@ -2,96 +2,49 @@
 
 window.addEventListener('load', ()=>{
 
-
-    let drawing =false;
-    let color="black";  
-    let x = undefined;
-    let y = undefined; 
-    let currentTool = 'brush'; //tool being used
-
-    let usingPen = false;
-    // Stores line x & ys used to make brush lines
-    let penXPoints = new Array();
-    let penYPoints = new Array();
-    // Stores whether mouse is down
-    let penDownPos = new Array();
     
- 
-    
-    
-    const pen = document.querySelector("#pen")
-    const canvas = document.querySelector("#canvas");
     const clearCanvas = document.getElementById("clear");
     const colorElement = document.getElementById("color");
- 
+    const templateElement = document.getElementById("template");
+    const penElement = document.getElementById("pen");
+    const markerElement = document.getElementById("marker");
+
+    let drawing =false;
+    let currentX;
+    let currentY;
 
        //Setting the canvas
+    const canvas = document.querySelector("#canvas");
     const context = canvas.getContext("2d");
     canvas.style.backgroundColor = "white";
-    
-    
 
-    //Mouse movement
+    /*const canvasOffsetX = canvas.canvasOffsetX;
+    const canvasOffsetY = canvas.canvasOffsetY;
+    console.log(canvasOffsetY, canvasOffsetX);
+    canvas.width = window.innerWidth - 50;
+    canvas.height = window.innerHeight - 60;*/
 
-    /*canvas.addEventListener("mousedown", ReactToMouseMove);
-    canvas.addEventListener("mousedown", ReactToMouseUp);
-    canvas.addEventListener("mousedown", ReactToMouseDown);*/
-     
-
-      //from previous
-     document.onmousemove = MouseMove;
-     document.onmousedown = MouseDown;
-     document.onmouseup = MouseUp;
-     
-     
-     insertImg();
-     function insertImg(){
-         img = new Image();
-         img.src = '../assets/Template1.png';
-         img.onload = function(){
-             context.drawImage(img, 0, 0, 400, 800 );
-         }
-     
-     }
-   
-     
-     function ChangeTool(toolClicked){
-        document.getElementById("pen").className = "";
-        document.getElementById("marker").className = "";
-        document.getElementById("text").className = "";
-        // Highlight the last selected tool on toolbar
-        document.getElementById(toolClicked).className = "selected";
-        // Change current tool used for drawing
-        currentTool = toolClicked;
-    }
-
-
-     function ChangeTool(toolClicked){
-        document.getElementById("pen").className = "";
-        document.getElementById("marker").className = "";
-        document.getElementById("text").className = "";
-        document.getElementById(toolClicked).className = "selected";
-        currentTool = toolClicked;
-
-    }
-
-
-     // Style 
-
-     context.strokeStyle = "#000";
-     context.lineJoin = "round";
-     context.lineWidth = 4;
-    
     
 
+    function MouseMove(e)
+     {  
+         /*if(!drawing){
 
-     function MouseMove(e)
-     {
+            return;
+        }else{
+            
+            context.lineTo(e.clientX, eclientY);
+            context.stroke();
+            context.closePath();
+            context.moveTo(e.clientX, e.clientY);
+
+        }*/
+            
          if(drawing)
          {
             context.lineTo(e.clientX, e.clientY);
-            context.closePath();
             context.stroke();
+            context.closePath();
             context.moveTo(e.clientX, e.clientY);
          } else{
              context.moveTo(e.clientX, e.clientY);
@@ -99,18 +52,73 @@ window.addEventListener('load', ()=>{
      }
      
      function MouseDown(e)
-     {
-         drawing = !drawing; 
+     {  
+        /*drawing = true; 
+        startX = e.clientX;
+        startY = e.clientY;*/ 
+         
+         /* insert backdrawing = true; */
+         drawing = !drawing;
          context.moveTo(e.clientX, e.clientY);
          context.beginPath();
      }
 
      function MouseUp(e)
-     {
-         drawing = !drawing; 
+     {  /*drawing = false; 
+        context.stroke();
+        context.beginPath();*/
+         drawing = false;
      }
     
-     /*adds Color*/
+   
+    //* Event listeners for Buttons 
+
+    //*Marker
+    markerElement.addEventListener("click", ()=>{
+
+        // Style the penstroke
+     context.strokeStyle = "#000";
+     context.lineJoin = "round";
+     context.lineWidth = 9;
+
+     document.onmousemove = MouseMove;
+     document.onmousedown = MouseDown;
+     document.onmouseup = MouseUp;
+
+   })
+     
+     //*Pen
+      penElement.addEventListener("click", ()=>{
+
+           // Style the penstroke
+        context.strokeStyle = "#000";
+        context.lineJoin = "round";
+        context.lineWidth = 2;
+        document.onmousemove = MouseMove;
+        document.onmousedown = MouseDown;
+        document.onmouseup = MouseUp;
+
+      })
+    
+     
+
+     /*Template*/
+     
+     templateElement.addEventListener("click", ()=>{
+
+        insertImg();
+        function insertImg(){
+            img = new Image();
+            img.src = '../assets/Template1.png';
+            img.onload = function(){
+                context.drawImage(img, 0, 0, 400, 800 );
+            }
+        }
+     })
+
+ 
+
+     /*Color*/
 
    colorElement.addEventListener("change", (e)=>{
     context.strokeStyle=e.target.value;
@@ -120,10 +128,7 @@ window.addEventListener('load', ()=>{
   clearCanvas.addEventListener("click", ()=>{
       context.clearRect(0, 0, canvas.width, canvas.height);
   })
-
-
-
-    
-
+     
+     
 
 });

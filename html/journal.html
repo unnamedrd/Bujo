@@ -10,10 +10,10 @@
     
     <header id="header">
         <h2>Bujo</h2>
-        <a href="">Home</a>
-        <a href="">Save</a>
-        <a href="">Title</a>
-        <a href="index.html">Exit</a>
+        <a href="" id="home">Home</a>
+        <a href="" id="save">Save</a>
+        <a href="" id="title">Title Goes Here</a>
+        <a href="index.html" id="exit">Exit</a>
     </header>
 
 
@@ -25,24 +25,27 @@
         <a href="#" id="pen"> <img src="../assets/icons8-pencil-90.png" id="penImg" alt="pen" class="iconsSide" /></a>
         <a href="#" id="marker"> <img src="../assets/chisel-tip-marker.png"  id="markerImg" alt="marker" class="iconsSide" /></a>
         <a href="#" id="text"> <img src="../assets/icons8-text-96.png" id="text" alt="textImg" class="iconsSide"/></a>
-        <img src="../assets/paint-palette.png" id="palette" alt="palette" class="iconsSide"/>
-        <img src="../assets/icons8-color-switch-96.png" id="picker" alt="picker" class="iconsSide"/>
+        <a href="#" id="template"><img src="../assets/paint-palette.png" id="palette" alt="palette" class="iconsSide"/></a>
         
-       <label> Template:
+        
+       <!--<label> Template:
             <select id="select-drawing">
               <option value= "Template1.png"> Template 1</option>
     
               <option value="url(https://cdn.pixabay.com/photo/2020/10/08/20/23/leaves-5638985_1280.png) "> Template 3</option>
               
             </select>
-          </label>
+          </label>-->
 
         <input type="color" id="color">
         <button class="buttonSide" id="clear">clear</button>
         </div>
        
       </div>
+   <div class="canvasWrapper">
     <canvas id="canvas" width= "1000" height="800"></canvas>
+   </div>
+    
 
     <script src="app.js"></script>
 </body>

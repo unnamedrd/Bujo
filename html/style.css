@@ -19,7 +19,12 @@ body{
     margin-top: 15px;
     border-radius: 15px;
 }
+.canvasWrapper{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+}
 .selected{
     background-color: grey;
 }
@@ -45,6 +50,23 @@ body{
 }
 
 
+#home{
+ position: relative; 
+ left: -350px;
+}
+
+#save{
+    position: relative;
+    left: -300px;
+}
+#exit{
+    position: relative;
+    left: 550px;
+}
+
+
+
+
 /*Side Navigation Bar */
 .sidenav {
     height: 100%;
@@ -66,10 +88,18 @@ body{
  }
 
  .sidenav button{
-     margin-top: 3em;
+     margin-top: 2em;
      width: 70px;
      height: 30px;
  }
+
+ .sidenav input{
+    margin-top: 2em;
+    width: 70px;
+    height: 30px;
+    
+}
+ 
   
    .sidenav a img{
        height: 2em;
