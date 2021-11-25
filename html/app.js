@@ -8,6 +8,7 @@ window.addEventListener('load', ()=>{
     const templateElement = document.getElementById("template");
     const penElement = document.getElementById("pen");
     const markerElement = document.getElementById("marker");
+    const templateSelect = document.getElementById("select-drawing");
 
     let drawing =false;
     let currentX;
@@ -63,7 +64,7 @@ window.addEventListener('load', ()=>{
      context.strokeStyle = "#000";
      context.lineJoin = "round";
      context.lineWidth = 9;
-     
+
       //calls drawing functions 
      document.onmousemove = MouseMove;
      document.onmousedown = MouseDown;
@@ -89,17 +90,47 @@ window.addEventListener('load', ()=>{
 
      /*Adds Bujo Template to Canvas*/
      
-     templateElement.addEventListener("click", ()=>{
+     templateElement.addEventListener("click", (e)=>{
 
         insertImg();
-        function insertImg(){
-            img = new Image();
-            img.src = '../assets/Template1.png';
-            img.onload = function(){
-                context.drawImage(img, 0, 0, 400, 800 );
+                function insertImg(){
+                img = new Image();
+                img.src = '../assets/Template1.png';
+                img.onload = function(){
+                context.drawImage(img, 0, 0, 400, 800 );}
+
+                }
+        })
+     
+
+      /*Adds Bujo Template to Canvas*/
+     
+      
+      templateSelect.addEventListener("change", (e)=>{
+            
+        selectImg();
+        function selectImg(){
+               
+            if (e.target.value = "Template1" ){
+                
+                img = new Image();
+                img.src = '../assets/Template3.png';
+                img.onload = function(){
+                context.drawImage(img, 0, 0, 400, 800 );}
+            } else if (e.target.value = "Template2" ){
+                
+                img = new Image();
+                img.src = '../assets/Template2.png';
+                img.onload = function(){
+                context.drawImage(img, 0, 0, 400, 800 );}
+
             }
+            
         }
      })
+    
+
+
 
 
      /* Selects Color*/
